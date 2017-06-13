@@ -1,0 +1,24 @@
+﻿@model BearingsWebApp.Models.MeebaInfo
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<form method="post" action="@Url.Action("PostEvent", "MeebaInfoes")">
+    Name: <input type="text" name="itemName" /><br />
+    Category: <select name="category">
+        <option value="Appointment">Appointment</option>
+        <option value="Social">Social</option>
+        <option value="Event">Event</option>
+        <option value="Personal">Personal</option>
+        <option value="Work">Work</option>
+        <option value="Other">Other</option>
+    </select><br />
+
+    Polarity: <select name="pull">
+        <option value="innne">Inner</option>
+        <option value="Outer">Outer</option>
+    </select><br />
+
+    <input type="submit" value="Create Event" />
+</form>
