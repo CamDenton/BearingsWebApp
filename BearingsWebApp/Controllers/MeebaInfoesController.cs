@@ -104,6 +104,7 @@ namespace BearingsWebApp.Controllers
         public ActionResult Create()
         {
             return View();
+  
         }
 
         // POST: MeebaInfoes/Create
@@ -119,6 +120,7 @@ namespace BearingsWebApp.Controllers
                 db.MeebaInfoes.Add(meebaInfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+          
             }
 
             return View(meebaInfo);
@@ -236,6 +238,24 @@ namespace BearingsWebApp.Controllers
             return new JsonResult() { Data = JsonConvert.SerializeObject(meeba.ID), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+
+        public JsonResult GetEvents()
+        {
+            var currentUser = User.Identity.GetUserId();
+            var evts = from events in db.MeebaInfoes
+                       where events.userID == currentUser
+                       select new
+                       {
+                           events.itemName,
+                           events.category,
+                           events.pull
+
+                       };
+            var evtsOutput = JsonConvert.SerializeObject(evts.ToList());
+
+            return Json(evtsOutput, JsonRequestBehavior.AllowGet);
+        }
+            
 
 
 
