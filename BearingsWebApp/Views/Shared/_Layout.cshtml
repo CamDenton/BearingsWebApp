@@ -74,6 +74,15 @@
                 <button class="btn navbar-btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                     <span class="glyphicon glyphicon-th-list"></span>
                 </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="myList">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li role="separator" class="divider"></li>
+                    <li>@Html.ActionLink("FAQ", "About", "Home")</li>
+                    <li role="separator" class="divider"></li>
+                    <li>@Html.ActionLink("Your Meeba", "Index", "Home")</li>
+                </ul>
+                
+                @Html.Partial("_LoginPartial")
                 </div>
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
@@ -83,15 +92,9 @@
                         <span class="close">&times;</span>
                         <p>Some text in the Modal..</p>
                     </div>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="myList">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li role="separator" class="divider"></li>
-                        <li>@Html.ActionLink("FAQ", "About", "Home")</li>
-                        <li role="separator" class="divider"></li>
-                        <li>@Html.ActionLink("Your Meeba", "Index", "Home")</li>
-                    </ul>
+                 
 
-                    @Html.Partial("_LoginPartial")
+                   
                 </div><!--/.nav-collapse -->
         </div>
     </div>
