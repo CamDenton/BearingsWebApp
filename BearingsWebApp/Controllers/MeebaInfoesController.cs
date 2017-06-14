@@ -15,7 +15,8 @@ namespace BearingsWebApp.Controllers
     public class MeebaInfoesController : Controller
     {
         private BearingsWebAppContext db = new BearingsWebAppContext();
-
+        int userOuter = 0;
+        int userInner = 0;
         // GET: MeebaInfoes
         public ActionResult Index()
         {
@@ -25,10 +26,7 @@ namespace BearingsWebApp.Controllers
             var userPersonal = 0;
             var userEvent = 0;
             var userOther = 0;
-            var userInner = 10;
-            var userOuter = 10;
-
-
+            
             var currentUser = User.Identity.GetUserId();
             var userMeeba = from user in db.MeebaInfoes
                             where user.userID == currentUser
@@ -104,7 +102,7 @@ namespace BearingsWebApp.Controllers
         public ActionResult Create()
         {
             return View();
-  
+
         }
 
         // POST: MeebaInfoes/Create
@@ -120,7 +118,6 @@ namespace BearingsWebApp.Controllers
                 db.MeebaInfoes.Add(meebaInfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-          
             }
 
             return View(meebaInfo);
@@ -213,17 +210,60 @@ namespace BearingsWebApp.Controllers
 
             }
 
+            //start of nonsense
+            var currentUser = User.Identity.GetUserId();
+            var userMeeba = from user in db.MeebaInfoes
+                            where user.userID == currentUser
+                            select user;
+
+
+            foreach (var outer in userMeeba)
+            {
+                userOuter += outer.OuterInt;
+            }
+            foreach (var inner in userMeeba)
+            {
+                userInner += inner.innerInt;
+            }
+
+            ViewData["Outer"] = userOuter;
+            ViewData["Inner"] = userOuter;
+
+            //if (meeba.pull == "Inner" && userOuter > 11)
+            //{
+            //    meeba.innerInt++; 
+
+            //    ViewBag.inside = "This didn't work";
+            //    meeba.OuterInt--;
+            //}
+
+
+            //if (meeba.pull == "Outer" && meeba.innerInt > 0)
+            //{
+            //    meeba.OuterInt++;
+            //    meeba.innerInt--;
+            //}
             switch (meeba.pull)
             {
-                case "Inner":
-                    meeba.innerInt++;
-                    meeba.OuterInt--;
-                    break;
-
                 case "Outer":
                     meeba.OuterInt++;
-                    meeba.innerInt--;
+                    if (userInner > 0)
+                    {
+                        meeba.innerInt--;
+                    }
                     break;
+
+                case "Inner":
+                    meeba.innerInt++;
+                    if (userOuter> 0)
+                    {
+                        meeba.OuterInt--;
+                    }
+                    break;
+
+                //default:
+                //    ViewBag.didNotWork = "This didn't work";
+                //    break;
             }
 
             meeba.userID = User.Identity.GetUserId();
