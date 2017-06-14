@@ -104,6 +104,7 @@ namespace BearingsWebApp.Controllers
         public ActionResult Create()
         {
             return View();
+  
         }
 
         // POST: MeebaInfoes/Create
@@ -119,6 +120,7 @@ namespace BearingsWebApp.Controllers
                 db.MeebaInfoes.Add(meebaInfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+          
             }
 
             return View(meebaInfo);
