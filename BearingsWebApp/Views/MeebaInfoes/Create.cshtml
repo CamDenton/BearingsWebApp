@@ -5,58 +5,7 @@
 }
 
 
-<style>
-    /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
 
-    /* Modal Content */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-</style>
-
-<button id="evtsBtn">Show Events</button>
-
-<!-- The Modal -->
-<div id="evtsModal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div id="evtsList"></div>
-    </div>
-</div>
 
 <form method="post" action="@Url.Action("PostEvent", "MeebaInfoes")">
     Name: <input type="text" name="itemName" /><br />
@@ -87,7 +36,7 @@
     // Get the <span> element that closes the modal
     var evtsSpan = document.getElementsByClassName("close")[1];
 
-   
+
 
     // When the user clicks the button, open the modal
     evtsBtn.onclick = function () {
@@ -115,11 +64,14 @@
             var eventsList = $("<ul>", { id: "lists" });
             $("#evtsList").append(eventsList);
 
-            $(events).each(function (index, value) {
-                var eachEvents = $("<li>", { id: "event" + index, "class": "evtsInList" });
-                eachEvents.text(value.itemName + " " + value.category + " " + value.pull);
-                eventsList.append(eachEvents);
-            })
+            //$(events).each(function (index, value) {
+                //var eachEvents = $("<li>", { id: "event" + index, "class": "evtsInList" });
+                //eachEvents.text(value.itemName + " " + value.category + " " + value.pull);
+                //eventsList.append(eachEvents);
+
+            //})
+
+
         });
     }
 
