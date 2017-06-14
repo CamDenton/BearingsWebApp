@@ -5,87 +5,50 @@
 }
 
 <h2>Index</h2>
-
+<h2>@ViewBag.didNotWork</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <canvas id="myChart" width="400" height="400"></canvas>
 <canvas id="canvas"></canvas>
 
-
-
-
 <script>
 
-alert(@ViewData["Appointments"]);
+    alert("Appointments: " +@ViewData["Appointments"]);
+    alert("Social: " +@ViewData["Social"]);
+    alert("Outer: " +@ViewData["Outer"])
+    alert("Inner: " +@ViewData["Inner"])
     var ctx = document.getElementById("myChart").getContext('2d');
 
     var myChart = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ["Appointments", "Social", "Event", "Personal", "Work", "Other"],
+            labels: ["Appointments", "Social", "Inner", "Events", "Personal", "Work", "Outer", "Other"],
 
             datasets: [
                 {
-                    label: 'Appointments',
-                    data: [ 12, 19, 3, 5, 2, 3],
-                    backgroundColor: ['rgba(99, 109, 255, 0.2)',],
-               },
-                {
-                    label: 'Social',
-                    data: [1, 13, 10, 8, 12, 13],
-                    backgroundColor: ['rgba(57, 169, 238, 0.2)',]
+                    label: 'Categories',
+                    data: [@ViewData["Appointments"], @ViewData["Social"],@ViewData["Inner"], @ViewData["Events"], @ViewData["Personal"],@ViewData["Work"], @ViewData["Outer"], @ViewData["Other"]],
+                    backgroundColor: 'rgba(99, 109, 255, 0.2)',
                 },
-                {
-                    label: 'Events',
-                    data: [1, 13, 10, 8, 12, 13],
-                    backgroundColor: ['rgba(57, 169, 238, 0.2)',]
-                },
-                {
-                    label: 'Personal',
-                    data: [1, 13, 10, 8, 12, 13],
-                    backgroundColor: ['rgba(57, 169, 238, 0.2)',]
-                },
-                {
-                    label: 'Work',
-                    data: [1, 13, 10, 8, 12, 13],
-                    backgroundColor: ['rgba(57, 169, 238, 0.2)',]
-                },
-                {
-                    label: 'Other',
-                    data: [1, 13, 10, 8, 12, 13],
-                    backgroundColor: ['rgba(57, 169, 238, 0.2)',]
-                },
-                {
-                    label: 'Inner',
-                    data: [1, 13, 10, 8, 12, 13],
-                    backgroundColor: ['rgba(57, 169, 238, 0.2)',]
-                },
-                {
-                    label: 'Outer',
-                    data: [2, 13, 10, 8, 12, 13],
-                    backgroundColor: ['rgba(57, 169, 238, 0.2)',]
-                },
-        ]
-    },
-        options: {
-            scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-</script>
-<script>
-    var canvas = document.getElementById("canvas").getContext('canvas');
-    var ctx = canvas.getContext('2d');
-    var gradient = ctx.createLinearGradient(0, 0, 200, 0);
-    gradient.addColorStop(0, 'green');
-    gradient.addColorStop(1, 'white');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(10, 10, 200, 100);
 
+                {
+                    label: 'Pull',
+                    data: [0,2, @ViewData["Inner"], 0, 0, 2],
+                    backgroundColor: ['rgba(176, 36, 21, 0.2)',]
+
+                },
+            ],
+
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        }
+});
 </script>

@@ -15,19 +15,17 @@ namespace BearingsWebApp.Controllers
     public class MeebaInfoesController : Controller
     {
         private BearingsWebAppContext db = new BearingsWebAppContext();
-
+        int userOuter = 1;
+        int userInner = 1;
         // GET: MeebaInfoes
         public ActionResult Index()
         {
-            var userAppt = 0;
-            var userSocial = 0;
-            var userWork = 0;
-            var userPersonal = 0;
-            var userEvent = 0;
-            var userOther = 0;
-            var userInner = 10;
-            var userOuter = 10;
-
+            var userAppt = 1;
+            var userSocial = 1;
+            var userWork = 1;
+            var userPersonal = 1;
+            var userEvent = 1;
+            var userOther = 1;
 
             var currentUser = User.Identity.GetUserId();
             var userMeeba = from user in db.MeebaInfoes
@@ -104,7 +102,7 @@ namespace BearingsWebApp.Controllers
         public ActionResult Create()
         {
             return View();
-  
+
         }
 
         // POST: MeebaInfoes/Create
@@ -120,7 +118,6 @@ namespace BearingsWebApp.Controllers
                 db.MeebaInfoes.Add(meebaInfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-          
             }
 
             return View(meebaInfo);
@@ -212,18 +209,60 @@ namespace BearingsWebApp.Controllers
                     break;
 
             }
+            //start of nonsense
+            var currentUser = User.Identity.GetUserId();
+            var userMeeba = from user in db.MeebaInfoes
+                            where user.userID == currentUser
+                            select user;
 
+
+            foreach (var outer in userMeeba)
+            {
+                userOuter += outer.OuterInt;
+            }
+            foreach (var inner in userMeeba)
+            {
+                userInner += inner.innerInt;
+            }
+
+            ViewData["Outer"] = userOuter;
+            ViewData["Inner"] = userOuter;
+
+            //if (meeba.pull == "Inner" && userOuter > 11)
+            //{
+            //    meeba.innerInt++; 
+
+            //    ViewBag.inside = "This didn't work";
+            //    meeba.OuterInt--;
+            //}
+
+
+            //if (meeba.pull == "Outer" && meeba.innerInt > 0)
+            //{
+            //    meeba.OuterInt++;
+            //    meeba.innerInt--;
+            //}
             switch (meeba.pull)
             {
-                case "Inner":
-                    meeba.innerInt++;
-                    meeba.OuterInt--;
-                    break;
-
                 case "Outer":
                     meeba.OuterInt++;
-                    meeba.innerInt--;
+                    if (userInner > 1)
+                    {
+                        meeba.innerInt--;
+                    }
                     break;
+
+                case "Inner":
+                    meeba.innerInt++;
+                    if (userOuter > 1)
+                    {
+                        meeba.OuterInt--;
+                    }
+                    break;
+
+                    //default:
+                    //    ViewBag.didNotWork = "This didn't work";
+                    //    break;
             }
 
             meeba.userID = User.Identity.GetUserId();
@@ -238,7 +277,6 @@ namespace BearingsWebApp.Controllers
             return new JsonResult() { Data = JsonConvert.SerializeObject(meeba.ID), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-
         public JsonResult GetEvents()
         {
             var currentUser = User.Identity.GetUserId();
@@ -255,8 +293,6 @@ namespace BearingsWebApp.Controllers
 
             return Json(evtsOutput, JsonRequestBehavior.AllowGet);
         }
-            
-
 
 
 
