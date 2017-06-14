@@ -237,6 +237,24 @@ namespace BearingsWebApp.Controllers
 
         }
 
+        public JsonResult GetEvents()
+        {
+            var currentUser = User.Identity.GetUserId();
+            var evts = from events in db.MeebaInfoes
+                       where events.userID == currentUser
+                       select new
+                       {
+                           events.itemName,
+                           events.category,
+                           events.pull
+
+                       };
+            var evtsOutput = JsonConvert.SerializeObject(evts.ToList());
+
+            return Json(evtsOutput, JsonRequestBehavior.AllowGet);
+        }
+            
+
 
 
 
