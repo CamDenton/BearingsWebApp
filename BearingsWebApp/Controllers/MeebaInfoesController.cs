@@ -80,7 +80,7 @@ namespace BearingsWebApp.Controllers
             ViewData["Other"] = userOther;
             ViewData["Inner"] = userInner;
             ViewData["Outer"] = userOuter;
-            return View();
+            return View(userMeeba.ToList());
         }
 
         // GET: MeebaInfoes/Details/5
