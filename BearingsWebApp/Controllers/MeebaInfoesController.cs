@@ -172,9 +172,37 @@ namespace BearingsWebApp.Controllers
         // POST: MeebaInfoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string category, string pull)
         {
+           
             MeebaInfo meebaInfo = db.MeebaInfoes.Find(id);
+            switch (category)
+            {
+                case "Social":
+                    meebaInfo.socInt--;
+                    break;
+
+                case "Appointment":
+                    meebaInfo.apptInt--;
+                    break;
+
+                case "Work":
+                    meebaInfo.workInt--;
+                    break;
+
+                case "Events":
+                    meebaInfo.evtInt--;
+                    break;
+
+                case "Other":
+                    meebaInfo.otherInt--;
+                    break;
+
+                case "Personal":
+                    meebaInfo.persInt--;
+                    break;
+
+            }
             db.MeebaInfoes.Remove(meebaInfo);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -226,7 +254,7 @@ namespace BearingsWebApp.Controllers
             }
 
             ViewData["Outer"] = userOuter;
-            ViewData["Inner"] = userOuter;
+            ViewData["Inner"] = userInner;
 
             //if (meeba.pull == "Inner" && userOuter > 11)
             //{
