@@ -303,6 +303,7 @@ namespace BearingsWebApp.Controllers
                 db.MeebaInfoes.Add(meeba);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                
             }
             return new JsonResult() { Data = JsonConvert.SerializeObject(meeba.ID), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
