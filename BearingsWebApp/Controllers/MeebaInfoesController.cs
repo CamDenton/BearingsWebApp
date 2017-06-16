@@ -18,6 +18,7 @@ namespace BearingsWebApp.Controllers
         int userOuter = 1;
         int userInner = 1;
         // GET: MeebaInfoes
+        [Authorize]
         public ActionResult Index()
         {
             var userAppt = 1;
@@ -109,6 +110,7 @@ namespace BearingsWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,itemName,category,pull,apptInt,workInt,socInt,evtInt,persInt,otherInt,innerInt,OuterInt")] MeebaInfo meebaInfo)
         {
