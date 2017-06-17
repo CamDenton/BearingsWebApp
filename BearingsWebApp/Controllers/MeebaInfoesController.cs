@@ -305,6 +305,14 @@ namespace BearingsWebApp.Controllers
                 return RedirectToAction("Index");
                 
             }
+
+            if(!ModelState.IsValid)
+            {
+                ViewBag.InvalidTask = "All fields required.";
+                //return RedirectToAction("Create");
+                
+            }
+
             return new JsonResult() { Data = JsonConvert.SerializeObject(meeba.ID), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }

@@ -12,8 +12,11 @@ namespace BearingsWebApp.Models
         [Key]
         public int ID { get; set; }
 
+        [Required]
         public string itemName { get; set; }
+        [Required]
         public string category { get; set; }
+        [Required]
         public string pull { get; set; }
         public int apptInt { get; set; }
         public int workInt { get; set; }
