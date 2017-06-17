@@ -18,6 +18,7 @@ namespace BearingsWebApp.Controllers
         int userOuter = 1;
         int userInner = 1;
         // GET: MeebaInfoes
+        [Authorize]
         public ActionResult Index()
         {
             var userAppt = 1;
@@ -109,6 +110,7 @@ namespace BearingsWebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,itemName,category,pull,apptInt,workInt,socInt,evtInt,persInt,otherInt,innerInt,OuterInt")] MeebaInfo meebaInfo)
         {
@@ -172,9 +174,37 @@ namespace BearingsWebApp.Controllers
         // POST: MeebaInfoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string category, string pull)
         {
+           
             MeebaInfo meebaInfo = db.MeebaInfoes.Find(id);
+            switch (category)
+            {
+                case "Social":
+                    meebaInfo.socInt--;
+                    break;
+
+                case "Appointment":
+                    meebaInfo.apptInt--;
+                    break;
+
+                case "Work":
+                    meebaInfo.workInt--;
+                    break;
+
+                case "Events":
+                    meebaInfo.evtInt--;
+                    break;
+
+                case "Other":
+                    meebaInfo.otherInt--;
+                    break;
+
+                case "Personal":
+                    meebaInfo.persInt--;
+                    break;
+
+            }
             db.MeebaInfoes.Remove(meebaInfo);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -226,7 +256,7 @@ namespace BearingsWebApp.Controllers
             }
 
             ViewData["Outer"] = userOuter;
-            ViewData["Inner"] = userOuter;
+            ViewData["Inner"] = userInner;
 
             //if (meeba.pull == "Inner" && userOuter > 11)
             //{
@@ -273,7 +303,16 @@ namespace BearingsWebApp.Controllers
                 db.MeebaInfoes.Add(meeba);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                
             }
+
+            if(!ModelState.IsValid)
+            {
+                ViewBag.InvalidTask = "All fields required.";
+                //return RedirectToAction("Create");
+                
+            }
+
             return new JsonResult() { Data = JsonConvert.SerializeObject(meeba.ID), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }

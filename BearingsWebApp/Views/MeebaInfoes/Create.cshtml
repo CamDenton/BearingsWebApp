@@ -4,12 +4,40 @@
     ViewBag.Title = "Create";
 }
 
+<style>
+    input{
+        width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    }
 
+    input[type=submit]{
+    background-color: mediumpurple;
+    border: none;
+    color: #FFF540;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    }
 
+    select{
+        width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: white;
+    }
+</style>
 
-<form method="post" action="@Url.Action("PostEvent", "MeebaInfoes")">
-    Name: <input type="text" name="itemName" /><br />
-    Category: <select name="category">
+<p>
+    @ViewBag.InvalidTask
+</p>
+<form class="form-inline" method="post" action="@Url.Action("PostEvent", "MeebaInfoes")">
+    <input type="text" name="itemName" placeholder="Enter Your Task's Name" /><br />
+    <select name="category">
+    <option selected disabled>Choose a Task Category</option>
         <option value="Appointment">Appointment</option>
         <option value="Social">Social</option>
         <option value="Event">Event</option>
@@ -18,65 +46,13 @@
         <option value="Other">Other</option>
     </select><br />
 
-    Polarity: <select name="pull">
-        <option value="inner">Inner</option>
+    <select name="pull">
+    <option selected disabled>Choose a Task Polarity</option>
+        <option value="Inner">Inner</option>
         <option value="Outer">Outer</option>
     </select><br />
 
     <input type="submit" value="Create Event" />
 </form>
 
-<script>
-    // Get the modal
-    var evtsModal = document.getElementById("evtsModal");
 
-    // Get the button that opens the modal
-    var evtsBtn = document.getElementById("evtsBtn");
-
-    // Get the <span> element that closes the modal
-    var evtsSpan = document.getElementsByClassName("close")[1];
-
-
-
-    // When the user clicks the button, open the modal
-    evtsBtn.onclick = function () {
-        evtsModal.style.display = "block";
-        GetEvents();
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    evtsSpan.onclick = function () {
-        evtsModal.style.display = "none";
-        CloseEvents();
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == evtsModal) {
-            evtsModal.style.display = "none";
-        }
-    }
-
-    function GetEvents() {
-        $.get("@Url.Action("GetEvents", "MeebaInfoes")", function (serverResponse) {
-            var events = JSON.parse(serverResponse);
-
-            var eventsList = $("<ul>", { id: "lists" });
-            $("#evtsList").append(eventsList);
-
-            //$(events).each(function (index, value) {
-                //var eachEvents = $("<li>", { id: "event" + index, "class": "evtsInList" });
-                //eachEvents.text(value.itemName + " " + value.category + " " + value.pull);
-                //eventsList.append(eachEvents);
-
-            //})
-
-
-        });
-    }
-
-    function CloseEvents() {
-        $("#evtsList").empty();
-    }
-
-</script>

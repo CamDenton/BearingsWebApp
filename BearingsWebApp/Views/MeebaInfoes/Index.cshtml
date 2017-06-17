@@ -67,7 +67,7 @@
                     @Html.DisplayFor(modelItem => item.itemName)<br />
                     @Html.DisplayFor(modelItem => item.category)<br />
                     @Html.DisplayFor(modelItem => item.pull)<br />
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID, category = item.category, pull = item.pull })
                 </div>
             }
         </div>
@@ -91,13 +91,13 @@
     // When the user clicks the button, open the modal
     evtsBtn.onclick = function () {
         evtsModal.style.display = "block";
-        
+
     }
 
     // When the user clicks on <span> (x), close the modal
     evtsSpan.onclick = function () {
         evtsModal.style.display = "none";
-        
+
     }
 
     // When the user clicks anywhere outside of the modal, close it
@@ -127,10 +127,12 @@
 
                 {
                     label: 'Pull',
-                    data: [0,2, @ViewData["Inner"], 0, 0, 2],
+                    data: [0,2, @ViewData["Inner"], 0, 0, @ViewData["Outer"]],
                     backgroundColor: ['rgba(176, 36, 21, 0.2)',]
 
                 },
+
+
             ],
 
             options: {
