@@ -240,6 +240,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\backgroundphoto2.jpg" />
     <Content Include="Content\Images\backgroundphoto5.jpg" />
+    <Content Include="Content\Images\campic.jpg" />
+    <Content Include="Content\Images\mattpic.jpg" />
+    <Content Include="Content\Images\mlanepic2.jpg" />
+    <Content Include="Content\Images\sharonpic.jpg" />
     <Content Include="Content\one-page-wonder.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
