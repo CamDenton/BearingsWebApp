@@ -211,7 +211,7 @@ namespace BearingsWebApp.Controllers
             }
             //start of nonsense
             var currentUser = User.Identity.GetUserId();
-            var userMeeba = from user in db.MeebaInfoes
+             var userMeeba = from user in db.MeebaInfoes
                             where user.userID == currentUser
                             select user;
 
