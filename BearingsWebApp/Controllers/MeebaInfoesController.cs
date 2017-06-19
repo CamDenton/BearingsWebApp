@@ -308,8 +308,7 @@ namespace BearingsWebApp.Controllers
 
             if(!ModelState.IsValid)
             {
-                ViewBag.InvalidTask = "All fields required.";
-                //return RedirectToAction("Create");
+                return new HttpStatusCodeResult(400, "Please Fill All Fields");
                 
             }
 
