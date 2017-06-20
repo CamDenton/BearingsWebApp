@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Delete";
 }
+<style>
+    body{
+        background-color: peachpuff;
+    }
+</style>
 
 <h2>Delete</h2>
 
@@ -10,104 +15,24 @@
 <div>
     <h4>MeebaInfo</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.itemName)
-        </dt>
+    <table class="table table-bordered">
+       <thead>
+           <tr>
+               <th> @Html.DisplayNameFor(model => model.itemName)</th>
+               <th> @Html.DisplayNameFor(model => model.category) </th>
+               <th> @Html.DisplayNameFor(model => model.pull) </th>
+           </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.itemName)</td>
+                <td> @Html.DisplayFor(model => model.category)</td>
+                <td> @Html.DisplayFor(model => model.pull) </td>
+            </tr>
+        </tbody>
+       </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.itemName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.pull)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.pull)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.apptInt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.apptInt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.workInt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.workInt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.socInt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.socInt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.evtInt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.evtInt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.persInt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.persInt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.otherInt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.otherInt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.innerInt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.innerInt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OuterInt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OuterInt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.userID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.userID)
-        </dd>
-
-    </dl>
+        
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
