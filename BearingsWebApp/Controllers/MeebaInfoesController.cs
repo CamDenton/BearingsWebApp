@@ -15,12 +15,18 @@ namespace BearingsWebApp.Controllers
     public class MeebaInfoesController : Controller
     {
         private BearingsWebAppContext db = new BearingsWebAppContext();
+        // Integers that handle the Pull of the Meeba chart
         int userOuter = 1;
         int userInner = 1;
+        
         // GET: MeebaInfoes
+        //The Index holds and handles the Meeba chart
+        
         [Authorize]
         public ActionResult Index()
         {
+            // Each var is a base integer for the points of the Meeba
+            // Each point is relative to a category filled in by the user
             var userAppt = 1;
             var userSocial = 1;
             var userWork = 1;
@@ -28,11 +34,17 @@ namespace BearingsWebApp.Controllers
             var userEvent = 1;
             var userOther = 1;
 
+            // Gets the Id of the current user
+            // Then uses that ID to filter out data from other
+            // Users and only gather the entries of the currently
+            // Logged in User
             var currentUser = User.Identity.GetUserId();
             var userMeeba = from user in db.MeebaInfoes
                             where user.userID == currentUser
                             select user;
-
+            
+            // Each of the foreach methods applies the databse integers 
+            // To the controller counterpart
             foreach (var appointment in userMeeba)
             {
                 userAppt += appointment.apptInt;
@@ -73,6 +85,8 @@ namespace BearingsWebApp.Controllers
                 userOuter += outer.OuterInt;
             }
 
+            // Saves the controller integers to ViewData values
+            // To be access via the view
             ViewData["Appointments"] = userAppt;
             ViewData["Social"] = userSocial;
             ViewData["Work"] = userWork;
@@ -172,12 +186,18 @@ namespace BearingsWebApp.Controllers
         }
 
         // POST: MeebaInfoes/Delete/5
+        // Passes the id, category, and pull of the selected 
+        // Database object to the controller for deletion
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id, string category, string pull)
         {
            
             MeebaInfo meebaInfo = db.MeebaInfoes.Find(id);
+
+            // Runs a switch statement with the category passed in
+            // That will decrement the value of that category from the Meeba
+            // If the object is holds the category 
             switch (category)
             {
                 case "Social":
@@ -205,13 +225,32 @@ namespace BearingsWebApp.Controllers
                     break;
 
             }
+
+            switch (pull)
+            {
+                case "Inner":
+                    meebaInfo.innerInt--;
+                    break;
+
+                case "Outer":
+                    meebaInfo.OuterInt--;
+                    break;
+            }
+
             db.MeebaInfoes.Remove(meebaInfo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        // Passes the users input from the View back to the controller 
+        // To be saved into the database
+        // However, if it is not a valid input
+        // The user will be redirected to an error page 
         public ActionResult PostEvent([Bind(Include = "ID,itemName,category,pull")]MeebaInfo meeba)
         {
+            // Passes the category into the switch statement
+            // If the category is matches a case, it will increment
+            // That category in the database
             switch (meeba.category)
             {
                 case "Social":
@@ -239,13 +278,16 @@ namespace BearingsWebApp.Controllers
                     break;
 
             }
-            //start of nonsense
+            //Gets a list of inputs for the user
+            //Based on the currently logged in user
+            
             var currentUser = User.Identity.GetUserId();
             var userMeeba = from user in db.MeebaInfoes
                             where user.userID == currentUser
                             select user;
 
-
+            // Applies the integer for inner and outer
+            // Based on the integers in the database
             foreach (var outer in userMeeba)
             {
                 userOuter += outer.OuterInt;
@@ -255,23 +297,16 @@ namespace BearingsWebApp.Controllers
                 userInner += inner.innerInt;
             }
 
+            // Applies the integers to a ViewData value
+            // To be accessed by the View
             ViewData["Outer"] = userOuter;
             ViewData["Inner"] = userInner;
 
-            //if (meeba.pull == "Inner" && userOuter > 11)
-            //{
-            //    meeba.innerInt++; 
-
-            //    ViewBag.inside = "This didn't work";
-            //    meeba.OuterInt--;
-            //}
-
-
-            //if (meeba.pull == "Outer" && meeba.innerInt > 0)
-            //{
-            //    meeba.OuterInt++;
-            //    meeba.innerInt--;
-            //}
+          // Passes the pull into the switch statement
+          // If the pull matches the case, increment 
+          // The pull, and decrement its opposite
+          // Value, so long as that value is greater 
+          // Than 1
             switch (meeba.pull)
             {
                 case "Outer":
@@ -290,13 +325,13 @@ namespace BearingsWebApp.Controllers
                     }
                     break;
 
-                    //default:
-                    //    ViewBag.didNotWork = "This didn't work";
-                    //    break;
+                    
             }
 
             meeba.userID = User.Identity.GetUserId();
 
+            // If the input is valid for the Model
+            // Save the input to the database
             if (ModelState.IsValid)
             {
 
@@ -306,16 +341,22 @@ namespace BearingsWebApp.Controllers
                 
             }
 
+            // If the input is incorrect,
+            // Redirect to the error page
             if(!ModelState.IsValid)
             {
-                ViewBag.InvalidTask = "All fields required.";
-                //return RedirectToAction("Create");
+                return RedirectToAction("Error");
                 
             }
 
             return new JsonResult() { Data = JsonConvert.SerializeObject(meeba.ID), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+
+        // Creates a Json formated object from the list 
+        // Of events created by the currently logged in user
+        // This is to pull that info from the controller
+        // And use in the view 
         public JsonResult GetEvents()
         {
             var currentUser = User.Identity.GetUserId();
@@ -333,6 +374,11 @@ namespace BearingsWebApp.Controllers
             return Json(evtsOutput, JsonRequestBehavior.AllowGet);
         }
 
+        // Returns the Error View
+        public ActionResult Error()
+        {
+            return View();
+        }
 
 
 
