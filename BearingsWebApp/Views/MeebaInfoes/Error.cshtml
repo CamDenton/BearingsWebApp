@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sorry, your input was missing some information. We'll send you back to fix it.</h2>
+
+@section Scripts{
+<script>
+    $(document).ready(function () {
+        window.setInterval(function () {
+            window.location.replace("@Url.Action("Create", "MeebaInfoes")")
+        }, 2000);
+    });
+
+
+</script>
+    }

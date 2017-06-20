@@ -317,6 +317,7 @@
     <Content Include="Views\MeebaInfoes\Details.cshtml" />
     <Content Include="Views\MeebaInfoes\Edit.cshtml" />
     <Content Include="Views\MeebaInfoes\Index.cshtml" />
+    <Content Include="Views\MeebaInfoes\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -308,7 +308,7 @@ namespace BearingsWebApp.Controllers
 
             if(!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(400, "Please Fill All Fields");
+                return RedirectToAction("Error");
                 
             }
 
@@ -332,6 +332,10 @@ namespace BearingsWebApp.Controllers
             return Json(evtsOutput, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Error()
+        {
+            return View();
+        }
 
 
 
