@@ -7,6 +7,8 @@
 body {
     background-color: #f9f5ed;
     margin-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    font-family: 'Open Sans', sans-serif;
+    color: #f9f4e5;
 }
 
 .header-image {
@@ -28,12 +30,16 @@ body {
     font-size: 130px;
     background: #fff;
     background: rgba(255,255,255,0.9);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300, lighter;
 }
 
 .headline h2 {
     font-size: 77px;
     background: #fff;
     background: rgba(255,255,255,0.9);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300, lighter;
 }
 
 .featurette-divider {
@@ -42,6 +48,9 @@ body {
 
 .featurette {
     overflow: hidden;
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+
 }
 
 .featurette-image.pull-left {
@@ -54,6 +63,7 @@ body {
 
 .featurette-heading {
     font-size: 50px;
+
 }
 
 footer {
@@ -187,6 +197,11 @@ footer {
  * Copyright (c) 2017 Daniel Eden
  */
 
+
+#bis {
+    font-family: 'Open Sans', sans-serif;
+    color:black;
+}
 .animated {
   animation-duration: 1s;
   animation-fill-mode: both;
