@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace BearingsWebApp.Models
 {
@@ -13,10 +14,13 @@ namespace BearingsWebApp.Models
         public int ID { get; set; }
 
         [Required]
+        [DisplayName("Task Name")]
         public string itemName { get; set; }
         [Required]
+        [DisplayName("Task Category")]
         public string category { get; set; }
         [Required]
+        [DisplayName("Task Pull")]
         public string pull { get; set; }
         public int apptInt { get; set; }
         public int workInt { get; set; }
