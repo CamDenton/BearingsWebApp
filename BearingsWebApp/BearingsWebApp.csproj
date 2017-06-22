@@ -243,8 +243,9 @@
     <Content Include="Content\Images\campic.jpg" />
     <Content Include="Content\Images\mattpic.jpg" />
     <Content Include="Content\Images\mlanepic2.jpg" />
-    <Content Include="Content\Images\sharonpic.jpg" />
     <Content Include="Content\one-page-wonder.css" />
+    <Content Include="Content\Paper.css" />
+    <Content Include="Content\Images\sharonpic.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -261,6 +262,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="index.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
