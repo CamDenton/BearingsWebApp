@@ -24,8 +24,9 @@ namespace BearingsWebApp
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/one-page-wonder.css"));
+                      "~/Content/font-awesome.min.css",                        
+                      "~/Content/grayscale.css",
+                       "~/Content/bootstrap.css"));
         }
     }
 }
